@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Author extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,7 +13,6 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
-        'description',
     ];
 
     /**
@@ -33,4 +32,10 @@ class Category extends Model
     protected $dates = [
         'created_at',
     ];
+
+
+    public function blogposts()
+    {
+        return $this->hasMany(\App\Blogpost::class);
+    }
 }

@@ -1,0 +1,67 @@
+models:
+  Category:
+    name: string:400
+    description: longtext
+    created_at: nullable timestamp
+
+  Author:
+    name: string:400
+    created_at: nullable timestamp
+    relationships:
+      hasMany: Blogpost
+
+  Comment:
+    content: longtext
+    published_at: nullable timestamp
+
+  Blogpost:
+    title: string:400
+    content: longtext
+    author_id: integer
+    published_at: nullable timestamp
+    updated_at: nullable timestamp
+    relationships:
+      hasMany: Category, Comment
+      belongsToMany: Author
+
+controllers:
+  BlogPost:
+    index:
+      query: all where:title where:content order:published_at
+      render: blogpost.index with:blogposts
+
+    create:
+      render: blogpost.create
+
+    update:
+      render: blogpost.update
+
+    delete:
+      redirect: blogpost.index
+
+    store:
+      validate: title, content
+      save: blogpost
+      send: ReviewNotification to:blogpost.author with:blogpost
+      dispatch: SyncMedia with:blogpost
+      fire: NewBlogpost with:blogpost
+      flash: blogpost.title
+      redirect: blogpost.index
+
+  Category:
+    index:
+      query: all
+      render: category.index with:categories
+
+    create:
+      render: category.create
+
+    update:
+      render: category.update
+
+    delete:
+      redirect: category.index
+
+  Comment:
+    show:
+      render: comment.show with:show
