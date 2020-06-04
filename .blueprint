@@ -1,0 +1,80 @@
+created:
+    - database/migrations/2020_06_04_123005_create_usertypes_table.php
+    - database/migrations/2020_06_04_123006_create_users_table.php
+    - database/migrations/2020_06_04_123007_create_categories_table.php
+    - database/migrations/2020_06_04_123008_create_authors_table.php
+    - database/migrations/2020_06_04_123009_create_comments_table.php
+    - database/migrations/2020_06_04_123010_create_blogposts_table.php
+    - database/migrations/2020_06_04_123010_create_user_usertype_table.php
+    - database/migrations/2020_06_04_123010_create_comment_user_table.php
+    - database/migrations/2020_06_04_123010_create_author_blogpost_table.php
+    - database/migrations/2020_06_04_123010_create_blogpost_category_table.php
+    - app/Usertype.php
+    - app/User.php
+    - app/Category.php
+    - app/Author.php
+    - app/Comment.php
+    - app/Blogpost.php
+    - database/factories/UsertypeFactory.php
+    - database/factories/UserFactory.php
+    - database/factories/CategoryFactory.php
+    - database/factories/AuthorFactory.php
+    - database/factories/CommentFactory.php
+    - database/factories/BlogpostFactory.php
+    - app/Http/Controllers/UsertypeController.php
+    - app/Http/Controllers/UserController.php
+    - app/Http/Controllers/CategoryController.php
+    - app/Http/Controllers/AuthorController.php
+    - app/Http/Controllers/CommentController.php
+    - app/Http/Controllers/BlogpostController.php
+    - app/Http/Requests/UsertypeStoreRequest.php
+    - app/Http/Requests/UsertypeUpdateRequest.php
+    - app/Http/Requests/UserStoreRequest.php
+    - app/Http/Requests/UserUpdateRequest.php
+    - app/Http/Requests/CategoryStoreRequest.php
+    - app/Http/Requests/CategoryUpdateRequest.php
+    - app/Http/Requests/AuthorStoreRequest.php
+    - app/Http/Requests/AuthorUpdateRequest.php
+    - app/Http/Requests/CommentStoreRequest.php
+    - app/Http/Requests/CommentUpdateRequest.php
+    - app/Http/Requests/BlogpostStoreRequest.php
+    - app/Http/Requests/BlogpostUpdateRequest.php
+    - resources/views/usertype/index.blade.php
+    - resources/views/usertype/create.blade.php
+    - resources/views/usertype/show.blade.php
+    - resources/views/usertype/edit.blade.php
+    - resources/views/user/index.blade.php
+    - resources/views/user/create.blade.php
+    - resources/views/user/show.blade.php
+    - resources/views/user/edit.blade.php
+    - resources/views/category/index.blade.php
+    - resources/views/category/create.blade.php
+    - resources/views/category/show.blade.php
+    - resources/views/category/edit.blade.php
+    - resources/views/author/index.blade.php
+    - resources/views/author/create.blade.php
+    - resources/views/author/show.blade.php
+    - resources/views/author/edit.blade.php
+    - resources/views/comment/index.blade.php
+    - resources/views/comment/create.blade.php
+    - resources/views/comment/show.blade.php
+    - resources/views/comment/edit.blade.php
+    - resources/views/blogpost/index.blade.php
+    - resources/views/blogpost/create.blade.php
+    - resources/views/blogpost/show.blade.php
+    - resources/views/blogpost/edit.blade.php
+    - tests/Feature/Http/Controllers/UsertypeControllerTest.php
+    - tests/Feature/Http/Controllers/UserControllerTest.php
+    - tests/Feature/Http/Controllers/CategoryControllerTest.php
+    - tests/Feature/Http/Controllers/AuthorControllerTest.php
+    - tests/Feature/Http/Controllers/CommentControllerTest.php
+    - tests/Feature/Http/Controllers/BlogpostControllerTest.php
+updated:
+    - routes/web.php
+models:
+    Usertype: { name: 'string:400', description: longtext, relationships: { hasMany: User } }
+    User: { username: 'string:200', password: 'string:40', usertype_id: integer, relationships: { hasMany: Comment, belongsToMany: Usertype } }
+    Category: { name: 'string:400', description: longtext, relationships: { hasMany: Blogpost } }
+    Author: { name: 'string:400', relationships: { hasMany: Blogpost } }
+    Comment: { content: 'longtext:1000', user_id: integer, relationships: { belongsToMany: User } }
+    Blogpost: { title: 'string:400', content: longtext, author_id: integer, category_id: integer, relationships: { hasMany: Comment, belongsToMany: 'Author, Category' } }

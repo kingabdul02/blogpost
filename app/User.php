@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Blogpost extends Model
+class User extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,10 +12,18 @@ class Blogpost extends Model
      * @var array
      */
     protected $fillable = [
-        'title',
-        'content',
-        'author_id',
-        'category_id',
+        'username',
+        'password',
+        'usertype_id',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
     ];
 
     /**
@@ -33,13 +41,8 @@ class Blogpost extends Model
         return $this->hasMany(\App\Comment::class);
     }
 
-    public function authors()
+    public function usertypes()
     {
-        return $this->belongsToMany(\App\Author::class);
-    }
-
-    public function categories()
-    {
-        return $this->belongsToMany(\App\Category::class);
+        return $this->belongsToMany(\App\Usertype::class);
     }
 }

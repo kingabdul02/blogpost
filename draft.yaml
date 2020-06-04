@@ -1,67 +1,79 @@
 models:
+  Usertype:
+    name: string:400
+    description: longtext
+    relationships:
+      hasMany: User
+
+  User:
+    username: string:200
+    password: string:40
+    usertype_id: integer
+    relationships:
+      hasMany: Comment
+      belongsToMany: Usertype
+
   Category:
     name: string:400
     description: longtext
-    created_at: nullable timestamp
+    relationships:
+      hasMany: Blogpost
 
   Author:
     name: string:400
-    created_at: nullable timestamp
     relationships:
       hasMany: Blogpost
 
   Comment:
-    content: longtext
-    published_at: nullable timestamp
+    content: longtext:1000
+    user_id: integer
+    relationships:
+      belongsToMany: User
 
   Blogpost:
     title: string:400
     content: longtext
     author_id: integer
-    published_at: nullable timestamp
-    updated_at: nullable timestamp
+    category_id: integer
     relationships:
-      hasMany: Category, Comment
-      belongsToMany: Author
+      hasMany: Comment
+      belongsToMany: Author, Category
 
 controllers:
-  BlogPost:
-    index:
-      query: all where:title where:content order:published_at
-      render: blogpost.index with:blogposts
+  # using shorthand to create controllers
+  Usertype:
+    resource
 
-    create:
-      render: blogpost.create
-
-    update:
-      render: blogpost.update
-
-    delete:
-      redirect: blogpost.index
-
-    store:
-      validate: title, content
-      save: blogpost
-      send: ReviewNotification to:blogpost.author with:blogpost
-      dispatch: SyncMedia with:blogpost
-      fire: NewBlogpost with:blogpost
-      flash: blogpost.title
-      redirect: blogpost.index
+  User:
+    resource
 
   Category:
-    index:
-      query: all
-      render: category.index with:categories
+    resource
 
-    create:
-      render: category.create
+  Author:
+    resource
 
-    update:
-      render: category.update
-
-    delete:
-      redirect: category.index
-
+# using longhand to create controller
   Comment:
+    index:
+      query: all:comments
+      render: comment.index with:comments
+    create:
+      render: comment.create
+    store:
+      validate: comment
+      save: comment
+      flash: comment.id
+      redirect: comment.index
     show:
-      render: comment.show with:show
+      render: comment.show with:comments
+    edit:
+      render: comment.edit with:comments
+    update:
+      validate: comment
+      update: comment
+      flash: comment.id
+      redirect: comment.index
+
+  Blogpost:
+    resource

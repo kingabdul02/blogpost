@@ -119,3 +119,16 @@ Route::group(['middleware' => ['web']], function(){
     ]);
   });
 });
+
+
+Route::resource('usertype', 'UsertypeController');
+
+Route::resource('user', 'UserController');
+
+Route::resource('category', 'CategoryController');
+
+Route::resource('author', 'AuthorController');
+
+Route::resource('comment', 'CommentController')->except('destroy');
+
+Route::resource('blogpost', 'BlogpostController');

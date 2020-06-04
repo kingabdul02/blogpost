@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlogpostsTable extends Migration
+class CreateUsertypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateBlogpostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blogposts', function (Blueprint $table) {
+        Schema::create('usertypes', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 400);
-            $table->longText('content');
-            $table->integer('author_id');
-            $table->timestamp('published_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->string('name', 400);
+            $table->longText('description');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateBlogpostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogposts');
+        Schema::dropIfExists('usertypes');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreatePostCategoriesTable extends Migration
+class CreateUserUsertypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateCreatePostCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('create_post_categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('post_id');
-            $table->string('category_id');
+        Schema::create('user_usertype', function (Blueprint $table) {
+            $table->foreignId('user_id');
+            $table->foreignId('usertype_id');
         });
     }
 
@@ -28,6 +26,6 @@ class CreateCreatePostCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('create_post_categories');
+        Schema::dropIfExists('user_usertype');
     }
 }

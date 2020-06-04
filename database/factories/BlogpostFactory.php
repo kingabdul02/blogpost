@@ -10,7 +10,6 @@ $factory->define(Blogpost::class, function (Faker $faker) {
         'title' => $faker->sentence(4),
         'content' => $faker->paragraphs(3, true),
         'author_id' => $faker->randomNumber(),
-        'published_at' => $faker->dateTime(),
-        'updated_at' => $faker->dateTime(),
+        'category_id' => $faker->randomNumber(),
     ];
 });

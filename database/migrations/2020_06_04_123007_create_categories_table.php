@@ -17,7 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name', 400);
             $table->longText('description');
-            $table->timestamp('created_at')->nullable();
             $table->timestamps();
         });
     }

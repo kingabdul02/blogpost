@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Usertype extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -26,8 +26,8 @@ class Category extends Model
     ];
 
 
-    public function blogposts()
+    public function users()
     {
-        return $this->hasMany(\App\Blogpost::class);
+        return $this->hasMany(\App\User::class);
     }
 }

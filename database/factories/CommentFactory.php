@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Comment::class, function (Faker $faker) {
     return [
         'content' => $faker->paragraphs(3, true),
-        'published_at' => $faker->dateTime(),
+        'user_id' => $faker->randomNumber(),
     ];
 });
